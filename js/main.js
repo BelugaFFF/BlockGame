@@ -24,13 +24,15 @@ function initGame(){
     ball.dx = ball.MOVESPEED;
     ball.dy = ball.MOVESPEED;
     ball.image = new Image();
-    ball.image.src = 'E:/workspace/js_ballgame/image/ball.png';
+    ball.image.src = './image/ball.png';
     ball.drawBall = function(){
         ctx.drawImage(this.image, this.x, this.y, 30, 30);
     };
     ball.move = function(){
         this.x += this.dx;
         this.y += this.dy;
+    };
+    ball.collision = function(){
         if(this.x < 0){
             this.x = 0;
             this.dx = ball.MOVESPEED;
@@ -46,8 +48,6 @@ function initGame(){
             this.dy = -1 * this.MOVESPEED;
         }
     };
-
-
 
     update();
 }
@@ -71,12 +71,13 @@ function update(objArray){
 //     ctx.drawImage(ball.image, dx, dy, 30, 30);
 // }
 
-function draw(){   
+function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //drawBall(x,y);
     ball.drawBall();
     ball.move();
+    ball.collision();
 
     return;
 }
