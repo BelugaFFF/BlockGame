@@ -11,9 +11,6 @@ var SCREEN_HEIGHT = 400;
 var ball = {};
 var block = {};
 
-
-
-
 function initGame(){
     canvas = document.getElementById('screen');
     ctx = canvas.getContext('2d');
