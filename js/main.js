@@ -5,11 +5,23 @@ var ctx;
 
 var refreshRate = 1000/60;
 
-var SCREEN_WIDTH = 600;
-var SCREEN_HEIGHT = 400;
+var SCREEN_WIDTH = 800;
+var SCREEN_HEIGHT = 500;
 
 var ball = {};
-var block = {};
+var Block = function(x,y){
+    this.x = x;
+    this.y = y;
+    this.HITPOINT = 1;
+    this.width = 5;//todo I will check the size of blocks later.
+    this.height = 3;
+    this.image = new Image();
+    this.image.src = './image/block.png';
+    this.draw = function(){
+        ctx.drawImage(this.image, this.x - (this.image.width / 2), this.y - (this.image.height / 2));
+    };
+};
+var blocks = [];
 
 function initGame(){
     canvas = document.getElementById('screen');
@@ -25,7 +37,7 @@ function initGame(){
     ball.dy = ball.MOVESPEED;
     ball.image = new Image();
     ball.image.src = './image/ball.png';
-    ball.drawBall = function(){
+    ball.draw = function(){
         ctx.drawImage(this.image, this.x, this.y, 30, 30);
     };
     ball.move = function(){
@@ -48,7 +60,14 @@ function initGame(){
             this.dy = -1 * this.MOVESPEED;
         }
     };
-    
+
+    for(let i = 0;i < 3; i++){
+        for(let j = 0;j < 4; j++){
+            var x = SCREEN_WIDTH / 5 * (j + 1);
+            var y = SCREEN_HEIGHT / 8 * (i + 1);
+            blocks[i * 4 + j] = new Block(x,y);
+        }
+    }
 
     update();
 }
@@ -65,7 +84,11 @@ function update(objArray){
     setTimeout(this.update,refreshRate);
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ball.drawBall();
+    ball.draw();
     ball.move();
     ball.collision();
+
+    for(let block of blocks){
+        block.draw();
+    }
 }
