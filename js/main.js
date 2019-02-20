@@ -48,6 +48,7 @@ function initGame(){
             this.dy = -1 * this.MOVESPEED;
         }
     };
+    
 
     update();
 }
@@ -63,21 +64,8 @@ function update(objArray){
 
     setTimeout(this.update,refreshRate);
     
-    draw();
-}
-
-// function drawBall(dx,dy){
-//     // ctx.drawImage(img, dx, dy, 30, 30);
-//     ctx.drawImage(ball.image, dx, dy, 30, 30);
-// }
-
-function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    //drawBall(x,y);
     ball.drawBall();
     ball.move();
     ball.collision();
-
-    return;
 }
